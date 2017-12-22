@@ -1,7 +1,7 @@
 # Site settings 配置站点
-title: 'HiKWang's Blog'
-description: 'Smile & For Fun!'
-keyword: 'HiKwang, HiKWang's Blog, HiKWang的博客, 前端, 前端开发, 前端博客, javascript, vuejs, nodejs, php, ubuntu, linux'
+title: "HiKWang's Blog"
+description: 'Keep Smiling'
+keyword: "HiKwang, HiKWang's Blog, HiKWang的博客, 前端, 前端开发, 前端博客, javascript, vuejs, nodejs, php, ubuntu, linux"
 url: 'http://hikwang.github.io' # your host
 
 # if you don't need baseurl, you should leave this value blank.
@@ -22,11 +22,11 @@ avatar: '/assets/img/profile.png'
 search: true
 
 # Night mode
-nightMode: true
+nightMode: false
 
 # Comments
 disqus: false
-disqus_url: 'https://liaokeyu.disqus.com/embed.js'
+disqus_url: ''
 
 # Share
 social-share: true
