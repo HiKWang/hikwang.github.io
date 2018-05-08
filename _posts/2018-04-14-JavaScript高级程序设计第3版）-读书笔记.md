@@ -97,3 +97,44 @@ var msg = "Hello world!";
 var msgAsBoolean = Boolean(msg);
 console.info(msgAsBoolean); // 返回true
 ```
+
+- Boolean类型的自动转换
+
+数据类型    |    转换为true     |    转换为false
+-|-|-
+Boolean     |        true       |        false
+String      |   任何非空字符串  |       ""
+Number      |   非零数字值      |       0和NaN
+Object      |   任何对象        |       null
+Undefined   |   n/a             |       undefined
+
+*注：n/a(或N/A)即not applicable 意思是“不适用”*
+
+### Number
+
+- 八进制字面量（如057）在严格模式下无效.
+
+- 保存浮点数值所需空间是保存整数值的两倍.
+
+以下情况js会将浮点数解析会整数：
+```
+var floatNum1 = 1.; // 小数点后没有数字——floatNum1解析为1
+var floatNum2 = 10.0; // 本身为整数——floatNum2解析为10
+```
+
+#### 浮点数总结
+
+- 可用'e'表示法
+
+```
+var f1 = 2e9; // f1==2*10^9
+var f2 = 2e-9; // f2==2*10^-9
+```
+
+- 浮点数最高精度是17位小数
+
+- 浮点数在进行算术运算时其精度不如整数
+
+例如：0.1+0.2结果是0.30000000000000004;这是使用基于IEEE754数值的浮点计算的通病。
+
+- 永远不要测试某个特定的浮点数值
