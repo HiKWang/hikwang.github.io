@@ -138,3 +138,20 @@ var f2 = 2e-9; // f2==2*10^-9
 例如：0.1+0.2结果是0.30000000000000004;这是使用基于IEEE754数值的浮点计算的通病。
 
 - 永远不要测试某个特定的浮点数值
+
+#### 数值范围
+
+- ECMAScript的最大、最小值分别保存在：
+
+1. `Number.MAX_VALUE`
+2. `Number.MIN_VALUE`
+
+- 超出最小和最大值会被转换成`-Infinity`(负无穷)/`Infinity`(正无穷)
+
+1. `Number.NEGATIVE_INFINITY`
+2. `Number.POSITIVE_INFINITY`
+
+- Function: isFinite()
+
+用于判断数值是不是无穷（即是不是在`Number.MIN_VALUE`和最大值`Number.MAX_VALUE`之间）
+
