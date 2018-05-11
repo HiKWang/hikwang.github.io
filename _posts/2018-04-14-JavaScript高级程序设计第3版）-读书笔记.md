@@ -235,6 +235,31 @@ parseInt('10', 16);       // ==>16 由十六进制转换为十进制
 parseInt(010);      // ES3==>8
 parseInt(010);      // ES5==>10
 
-// 注意：当前chrome65测试显示，当转换的字符为数值时,在转换为八进制时，转换不受`parseInt`第二参数控制
-parseInt(010, 10);   // ==>8
+// 注意：当前chrome65测试显示，当转换的字符为数值时,在由八进制转换为十进制时，转换不受`parseInt`第二参数控制
+parseInt(010);          // ==>8
+parseInt(010, 10);      // ==>8
+parseInt('010', 10);    // ==>10
 ```
+- Functin: parseFloat()
+
+`parseFloat`: 1.只能解析十进制数(十六进制数会被解析会0)
+              2.只识别从左到右第一个小数点
+
+```
+parseFloat(0123);       // ==> 123
+parseFloat('0x123');    // ==> 0
+parseFloat('12.3.4');   // ==> 12.3
+parseFloat('1.2e2');    // ==> 120
+```
+
+#### String
+
+- 1.单双引号的使用对字符串解析没有影响，和PHP不一样；
+- 2.类似`\u03a3`这样的转义序列只表示一个字符
+
+```
+var s = 'text\u03a3';
+s.length;   // ==> 5
+```
+
+- Function: toString()
