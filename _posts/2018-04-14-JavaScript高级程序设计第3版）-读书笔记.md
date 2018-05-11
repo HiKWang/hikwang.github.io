@@ -122,7 +122,7 @@ var floatNum1 = 1.; // 小数点后没有数字——floatNum1解析为1
 var floatNum2 = 10.0; // 本身为整数——floatNum2解析为10
 ```
 
-#### 浮点数总结
+#### 1.浮点数
 
 - 可用'e'表示法
 
@@ -139,7 +139,7 @@ var f2 = 2e-9; // f2==2*10^-9
 
 - 永远不要测试某个特定的浮点数值
 
-#### 数值范围
+#### 2.数值范围
 
 - ECMAScript的最大、最小值分别保存在：
 
@@ -155,3 +155,86 @@ var f2 = 2e-9; // f2==2*10^-9
 
 用于判断数值是不是无穷（即是不是在`Number.MIN_VALUE`和最大值`Number.MAX_VALUE`之间）
 
+#### 3.NaN
+
+表示非数值(Not a Number)
+> 这个数值用于表示一个本来要返回数值的操作数未返回数值的情况。在JS中，任何数除以0会返回NaN。
+
+- NaN有两个特点
+
+1. 任何设计NaN的操作都返回NaN
+```
+console.info(NaN/10); // ==>NaN
+```
+
+2.NaN与任何值都不相等，包括NaN本身
+```
+console.info(NaN == NaN); // ==>false
+```
+
+- Function: isNaN()
+
+任何不能被转换为数值的值都会使isNaN()返回true
+
+```
+console.info(isNaN(10)); // ==> false
+console.info(isNaN('10')); // ==> false
+console.info(isNaN(true)); // ==> false
+console.info(isNaN(NaN)); // ==> true
+console.info(isNaN('hello word!')); // ==> true
+```
+
+#### 4.数值转换
+
+- Function: Number()
+
+`Number`被称为转型函数
+
+```
+Number(true);           // ==>1
+Number(false);          // ==>0
+Number(99);             // ==>99
+Number(null);           // ==>0 **注意**
+Number(undefined);      // ==>NaN
+
+// start 参数为字符串的情况
+Number('123');          // ==>123
+Number('0123');         // ==>123
+Number('1.1');          // ==>1.1
+Number('01.1');         // ==>1.1
+Number('0xef');         // ==>239 将十六进制数转换为十进制 **注意**
+Number('');             // ==>0 **注意**
+// end 其他情况字符串返回NaN
+```
+
+- Function: parseInt()
+
+`parseInt`: 1.会忽略第一个字符前所有的空格;
+            2.第一个字符如果不是数值或负号则直接返回`NaN`。
+            3.可以转换八进制、十六进制为十进制
+            4.第二个参数，可以指定转换为几进制
+
+```
+parseInt('   123');     // ==>123
+parseInt('   s23');     // ==>NaN
+parseInt(055);          // ==>45 将八进制转换为十进制
+parseInt(0x55);         // ==>85 将十六进制转换为十进制
+parseInt('123blue');    // ==>123
+parseInt('-123');       // ==>-123
+parseInt(12.3);         // ==>12
+```
+
+```
+// 转换为指定进制数
+parseInt('10', 2);        // ==>2 由二进制转换为十进制
+parseInt('10', 8);        // ==>8 由八进制转换为十进制
+parseInt('10', 10);       // ==>10 由十进制转换为十进制
+parseInt('10', 16);       // ==>16 由十六进制转换为十进制
+
+// 在没有指定进制数时，ES3和ES5对八进制的解析不一样
+parseInt(010);      // ES3==>8
+parseInt(010);      // ES5==>10
+
+// 注意：当前chrome65测试显示，当转换的字符为数值时,在转换为八进制时，转换不受`parseInt`第二参数控制
+parseInt(010, 10);   // ==>8
+```
