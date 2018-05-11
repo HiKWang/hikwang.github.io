@@ -28,17 +28,19 @@ postPatterns: circuitBoard
 
 # 第3章 基本概念
 
-## 严格模式
+## 3.1语法
+
+#### 严格模式
 
 1.在ES5引入严格模式(strict mode)概念；
 2.处理ES3不确定的行为和不安全的操作；
 3.使用严格模式：`"use strict";`
 
-## 数据类型
+#### 数据类型
 
 Undefined/Null/Boolean/Number/String/Object
 
-### typeof操作符
+#### typeof操作符
 
 1.使用方式
 
@@ -48,7 +50,7 @@ typeof var
 typeof(var)
 ```
 
-### Undefined
+#### Undefined
 
 声明变量但未初始化，其值为`undefined`
 
@@ -57,7 +59,7 @@ var msg;
 console.info(msg == undefined); // 输出 undefined 注意：undefined是值不是字符串
 ```
 
-### NULL
+#### NULL
 
 特殊值null是一个空的对象指针
 一个即将保存对象的变量，最好初始化为null
@@ -75,7 +77,7 @@ alert(null == undefined);  // true
 alert(null === undefined);  // false
 ```
 
-### Boolean
+#### Boolean
 
 Boolean类型的字面值true和false是区分大小的，也就是说，True和False（以及其他混合大小写形式）都不是Boolean值。
 
@@ -110,7 +112,7 @@ Undefined   |   n/a             |       undefined
 
 *注：n/a(或N/A)即not applicable 意思是“不适用”*
 
-### Number
+#### Number
 
 - 八进制字面量（如057）在严格模式下无效.
 
@@ -122,7 +124,7 @@ var floatNum1 = 1.; // 小数点后没有数字——floatNum1解析为1
 var floatNum2 = 10.0; // 本身为整数——floatNum2解析为10
 ```
 
-#### 1.浮点数
+##### 1.浮点数
 
 - 可用'e'表示法
 
@@ -139,7 +141,7 @@ var f2 = 2e-9; // f2==2*10^-9
 
 - 永远不要测试某个特定的浮点数值
 
-#### 2.数值范围
+##### 2.数值范围
 
 - ECMAScript的最大、最小值分别保存在：
 
@@ -155,7 +157,7 @@ var f2 = 2e-9; // f2==2*10^-9
 
 用于判断数值是不是无穷（即是不是在`Number.MIN_VALUE`和最大值`Number.MAX_VALUE`之间）
 
-#### 3.NaN
+##### 3.NaN
 
 表示非数值(Not a Number)
 > 这个数值用于表示一个本来要返回数值的操作数未返回数值的情况。在JS中，任何数除以0会返回NaN。
@@ -184,7 +186,7 @@ console.info(isNaN(NaN)); // ==> true
 console.info(isNaN('hello word!')); // ==> true
 ```
 
-#### 4.数值转换
+##### 4.数值转换
 
 - Function: Number()
 
@@ -252,7 +254,7 @@ parseFloat('12.3.4');   // ==> 12.3
 parseFloat('1.2e2');    // ==> 120
 ```
 
-#### String
+##### String
 
 - 1.单双引号的使用对字符串解析没有影响，和PHP不一样；
 - 2.类似`\u03a3`这样的转义序列只表示一个字符
@@ -263,3 +265,107 @@ s.length;   // ==> 5
 ```
 
 - Function: toString()
+
+Number/Boolean/Object/String类型都有方法`toString`,null/undefined没有`toString`。
+
+数值型转换时可以在toString中传入基数，获取相应的进制数
+
+```
+var num = 10;
+num.toString(2);	// ==> "1010"
+num.toSring(8);		// ==> "12"
+num.toSring(16);	// ==> "a"
+```
+
+- Function: String()
+
+```
+String(10); 	// ==> '10'
+String(true);	// ==> 'true'
+String(null);	// ==> 'null'
+String(undefined);	// ==> 'undefined'
+```
+
+##### Object
+
+```
+var o1 = new Object();
+var o2 = new Object;	// 有效，不推荐
+```
+
+Object的每个实例都具有以下属性和方法：
+
+1. `Constructor`
+
+```
+var t = new Array();
+console.info(t.constructor==Array); // ==>true
+var d = new Date();
+console.info(d.constructor==Date); // ==>true
+```
+
+2.`hasOwnProperty()`
+
+```
+function fun(){
+   this.name = 'tom';
+}
+
+var f = new fun();
+console.info(f.hasOwnProperty('name'));	// ==>true
+
+// hasOwnProperty检查对象实例中有无指定属性
+// 不是检查实例原型中的属性
+console.info(f.hasOwnProperty('constructor'));	// ==>false
+```
+
+3.`isPrototypeOf()`
+
+```
+function siteAdmin(nickName){
+ this.nickName=nickName;
+}
+
+var matou=new siteAdmin("tom");
+console.info(siteAdmin.prototype.isPrototypeOf(matou));	// ==>true
+```
+
+4.`propertyIsEnumerable()`
+
+检查属性是否可以被枚举即`for...in`（所有自定义属性都可以被枚举）
+
+```
+function person() {
+   this.name = 'zhangsan';
+}
+
+var p = new person();
+console.info(p.propertyIsEnumerable('name')); // ==>true
+
+for(k in p) {
+console.info(k+','+p[k]); // ==>name,zhangsan
+}
+```
+
+5.`toLocaleString()`
+
+转换为本地格式字符串
+
+```
+var date = new Date();
+date.toString();  // ==>"Fri May 11 2018 22:24:57 GMT+0800 (CST)"
+date.toLocaleString();	// ==>"5/11/2018, 10:24:57 PM"
+```
+
+6.`toString()`
+
+7.`valueOf()`
+
+```
+var array = new Array("a","b","c");
+console.log(array.valueOf());	// Array(3) 返回数组本身
+console.log(array.toString());	// 'a','b','c'
+console.log(array.toLocaleString()); // 'a','b','c'
+```
+
+## 3.5操作符
