@@ -449,3 +449,51 @@ false || null; // null
 NaN < 3; // false
 NaN >= 3; // false
 ```
+## 语句
+
+- `for`
+
+```
+for(;;) {dosomething}; // 无限循环
+
+var i = 0;
+for(;i<10;) {
+   i++;    
+}
+```
+
+- `for-in`
+
+`for (property in expression) statement`
+
+expression是数组，则property为索引；
+expression是对象，则property为属性名；
+
+```
+for(var propName in window) {
+    document.write(propName);   
+}
+
+for(var i in ['a','b','c']) {
+    console.info(i);
+}// 0 1 2 i是key
+
+for(var i in {"a": 1, "b": 2}) {
+        console.info(i);
+}// a b
+```
+
+- `label`
+
+`label: statement`
+
+```
+//exam.
+// start为标签(label),可用于break/continue引用
+start: for(var i=0; i<10; i++) {
+    if(i == 2) {
+        break start;     
+    }
+}
+console.info(i);// 2
+```
