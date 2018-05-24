@@ -497,3 +497,29 @@ start: for(var i=0; i<10; i++) {
 }
 console.info(i);// 2
 ```
+
+- `break`/`continue`
+
+break立即退出整个循环；
+continue立即退出当前循环，继续从循环顶部继续执行。
+
+```
+var num1 = 0;
+var num2 = 0;
+// break
+for(var i=1; i<10; i++) {
+    if(i % 5 == 0){
+        break;     
+    }   
+    num1++;
+}
+console.info(num1); // 4
+
+// continue
+for(var j=1; j<10; j++) {
+    if(j % 5 == 0){
+       continue;
+    }   
+    num2++;
+}
+console.info(num2); // 8
