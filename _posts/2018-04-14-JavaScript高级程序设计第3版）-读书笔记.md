@@ -593,7 +593,8 @@ fun(2); // 12
 fun(1,2,3); // 6
 ```
 
-arguments的值可以覆盖对应形参的值,反之不可以。
+arguments的值永远和参数值保持同步
+arguments对象的长度是由传入的参数个数决定的，不是由定义函数时的形参个数决定的。
 
 ```javascript
 function fun(par1, par2) {
@@ -604,6 +605,6 @@ function fun(par1, par2) {
 }
 
 fun(); // undefined undefined
-fun(1);// 1 undefined 如果arguments长度为1 那么为arguments赋值也没用
+fun(1);// 1 undefined 
 fun(1, 2); // 1 10
 ```
