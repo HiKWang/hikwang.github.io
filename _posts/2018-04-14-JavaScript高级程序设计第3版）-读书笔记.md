@@ -428,6 +428,16 @@ false || null; // null
 
 ### 加性操作符
 
+除了对数值进行加法运算外，使用"+"为链接符还会将数据类型进行转换类似调用`toString()`
+
+```javascript
+var arr = [1,2,3];
+
+console.info(arr); // [ 1, 2, 3 ]
+console.info('arr=='+arr); // arr==1,2,3
+console.info(arr.toString()); // 1,2,3
+```
+
 ### 关系操作符
 
 1. 字符串相比较时，是比较其第一个字符的字符编码大小
@@ -532,6 +542,18 @@ console.info(num2); // 8
 switch语句在比较值时使用的是全等操作符.
 
 ```
+var num = 1;
+
+switch(num) {
+    case 1:
+        console.info('number 1');
+        break;
+    case '1':
+        console.info('string 1');
+        break;
+}
+
+//参数可以是多种类型
 var num = 25;
 
 switch(true) {
@@ -545,4 +567,43 @@ switch(true) {
         console.info('than 20');
         break;
 }
+```
+
+### 函数
+
+JS的函数参数与大多数语言的函数参数不同；
+JS的函数不关心传递进来多少个参数，也不在乎传进来的参数类型。
+
+```javascript
+function fun() {
+    var argLen = arguments.length;
+
+    if(argLen == 1) {
+        console.info(arguments[0] + 10);
+    }else if(argLen > 1) {
+        var sum = 0;
+        for(var i = 0; i < argLen; i++) {
+            sum += arguments[i];
+        }
+        console.info(sum);
+    }
+}
+
+fun(2); // 12
+fun(1,2,3); // 6
+```
+
+arguments的值可以覆盖对应形参的值,反之不可以。
+
+```javascript
+function fun(par1, par2) {
+    arguments[1] = 10;
+    console.info(par1);
+    console.info(par2);
+    console.info('\n');
+}
+
+fun(); // undefined undefined
+fun(1);// 1 undefined 如果arguments长度为1 那么为arguments赋值也没用
+fun(1, 2); // 1 10
 ```
