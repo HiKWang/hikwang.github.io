@@ -523,3 +523,26 @@ for(var j=1; j<10; j++) {
     num2++;
 }
 console.info(num2); // 8
+```
+
+- `with` 
+
+- `switch`
+
+switch语句在比较值时使用的是全等操作符.
+
+```
+var num = 25;
+
+switch(true) {
+    case num<0:
+        console.info('less 0');
+        break;
+    case num>0 && num<20:
+        console.info('than 0 less 20');
+        break;
+    default:
+        console.info('than 20');
+        break;
+}
+```
