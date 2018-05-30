@@ -608,3 +608,68 @@ fun(); // undefined undefined
 fun(1);// 1 undefined 
 fun(1, 2); // 1 10
 ```
+
+- 没有重载
+
+重载(overload)是指一个函数编写两个定义，只要两个定义的签名（接受的参数类型和数量）不同即可。
+
+重写(overriding)，才是方法的覆盖。
+
+javascript没有重载，但是可以通过检查参数的类型和数量模拟重载。
+
+```
+function fun(num) {
+    return num + 100;
+}
+
+function fun(num) {
+    return num + 200;
+}
+
+console.info(fun(100)); // 300
+```
+
+## 变量、作用域和内存问题
+
+### 基本类型和引用类型的值
+
+javascript不允许直接房屋内存中的位置，即不能直接操作对象的内存空间。操作对象时，实际是操作的对象的引用。
+
+基本类型没有方法和属性，引用类型可为其动态的添加方法和属性。
+
+- 复制变量值
+
+基本类型复制时，是新建一个内存空间进行保存。
+
+引用类型复制时，复制的值和被复制的值实际是引用同一个对象，都指向同一个内存空间。
+
+```
+var o1 = new Object();
+o1.name = 'o1';
+var o2 = o1;
+o2.name = 'other o';
+console.info(o1.name); // other o
+```
+
+- 参数的传递
+
+参数的传递和变量的复制一样。
+
+```
+function setName(obj) {
+    obj.name = 'tom'; // obj 引用自p
+    obj = new Object();// obj重写为新的对象 当前为局部对象和p已无关
+    obj.name = 'jack';
+}
+var p = new Object();
+setName(p);
+console.info(p.name);
+```
+
+- instanceof
+
+### 执行环境及作用域
+
+- 作用域琏
+
+- 没有块级作用域 有函数作用域（function scope）
