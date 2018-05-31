@@ -631,9 +631,13 @@ console.info(fun(100)); // 300
 
 ## 变量、作用域和内存问题
 
+基本类型值在内存中占据的空间大小是固定的，因而被放在栈内存中；
+
+引用类型是对象，被放在堆内存中。
+
 ### 基本类型和引用类型的值
 
-javascript不允许直接房屋内存中的位置，即不能直接操作对象的内存空间。操作对象时，实际是操作的对象的引用。
+javascript不允许直接访问内存中的位置，即不能直接操作对象的内存空间。操作对象时，实际是操作的对象的引用。
 
 基本类型没有方法和属性，引用类型可为其动态的添加方法和属性。
 
@@ -673,3 +677,54 @@ console.info(p.name);
 - 作用域琏
 
 - 没有块级作用域 有函数作用域（function scope）
+### 垃圾收集
+
+执行环境中自动管理，在一定间隔时间内找出不再使用的变量，释放其内存空间。
+垃圾收集器会跟踪哪个变量没用了，并打上标记。
+
+- 标记清除（mark-and-sweep）
+
+标记变量“进入环境”，和“离开环境”
+
+- 引用计数
+
+跟踪每个值被引用的次数，当引用次数为0时表示可以被释放。
+循环引用会导致内存泄露。
+
+```
+function problem(){
+    var objectA = new Object();
+    var objectB = new Object();
+
+    objectA.someOtherObject = objectB;
+    objectB.someOtherObject = objectA;
+}
+```
+
+- 性能问题
+
+IE7以后性能临界值动态变化，有效的解决了IE的由于垃圾收集导致的性能问题.
+
+- 管理内存
+
+由于系统给浏览器分配的内存往往小于其他桌面程序，因此js的内存应及时释放。
+
+引用解除
+
+```
+function getObj(){
+    var obj = new Object;    
+    obj.name = 'tom';
+    return obj;
+}
+
+var globalVar = getObj();
+// do something
+globalVar = null; // 全局变量在使用结束后，进行引用解除
+```
+
+## 引用类型
+
+### Object类型
+
+### Array类型
