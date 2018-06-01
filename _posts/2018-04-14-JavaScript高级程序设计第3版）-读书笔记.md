@@ -728,3 +728,18 @@ globalVar = null; // 全局变量在使用结束后，进行引用解除
 ### Object类型
 
 ### Array类型
+
+数组的length属性不是只读的，可以修改值，修改值后可以从数组的末尾移除或向数组添加新项。
+
+```javascript
+var arr = [1,2,3];
+arr.length = 2; 
+console.info(arr); // [1,2] 3被移除
+
+arr[arr.length] = 'aa'; // 数组的最后一项索引始终是length-1，因此它的下一项新位置就为length
+arr[arr.length] = 'bb'; // 类似于 arr.push('bb');
+console.info(arr); // [1,2,aa,bb] aa,bb被动态加入数组
+
+arr.length = 5;
+console.info(arr[4); // undefined 长度增长到5时，4的位置没有赋值则为undefined
+```
