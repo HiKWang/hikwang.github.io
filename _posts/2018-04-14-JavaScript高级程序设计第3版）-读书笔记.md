@@ -741,5 +741,31 @@ arr[arr.length] = 'bb'; // 类似于 arr.push('bb');
 console.info(arr); // [1,2,aa,bb] aa,bb被动态加入数组
 
 arr.length = 5;
-console.info(arr[4); // undefined 长度增长到5时，4的位置没有赋值则为undefined
+console.info(arr[4]); // undefined 长度增长到5时，4的位置没有赋值则为undefined
 ```
+
+- Function: concat([str], [Array])
+@return Array
+
+```
+var arr = [1,2];
+var $arr = arr; // 传递的是引用
+var _arr = arr.concat(); // 复制一个副本
+$arr.push(3);
+_arr.push(5);
+console.info($arr);
+console.info(_arr);
+console.info(arr);
+```
+
+`concat`可以连接字符串或数组
+
+```
+var arr = ['aa', 'bb'];
+var newArr = [11,22];
+var a = arr.concat('cc', newArr);
+console.info(a);
+```
+
+- Function: slice(start, [end])
+@return Array
