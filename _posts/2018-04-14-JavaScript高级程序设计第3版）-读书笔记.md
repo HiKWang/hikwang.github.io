@@ -744,6 +744,8 @@ arr.length = 5;
 console.info(arr[4]); // undefined 长度增长到5时，4的位置没有赋值则为undefined
 ```
 
+**操作方法**
+
 - Function: concat([str], [Array])
 @return Array
 
@@ -767,5 +769,74 @@ var a = arr.concat('cc', newArr);
 console.info(a);
 ```
 
-- Function: slice(start, [end])
+- Function: slice(begin, [end])
 @return Array
+
+- Function: splice(begin, removeNum, [insertStr...])
+@return removedArr
+
+**位置方法**
+
+- Function: indexOf(findStr, begin)
+@return index || -1
+
+- Function: lastIndexOf(findStr, begin)
+@return index || -1
+
+查找的字符要和原数组中的字符全等"==="才能被找到
+
+```
+var arr = [1,2,3];
+console.info(arr.indexOf('2')); // -1
+```
+
+**迭代方法**
+
+- Function: every(function(value, index, array), [scope])
+- Function: some(function(value, index, array), [scope])
+- Function: filter(function(value, index, array), [scope])
+- Function: map(function(value, index, array), [scope])
+- Function: forEach(function(value, index, array), [scope])
+
+```javascript
+var arr = [1,2,3,4,5,4,3,2];
+
+// every
+// 方法参数的所有返回值都返回true 最后结果才为true
+// 参数value为数组值，index为数组索引值，array为数组本身
+var everyRes = arr.every(function (value, index, array) {
+        return value>2;
+});
+console.info(everyRes);// false
+
+// some
+// 方法参数的某一次值返回true，最后结果就返回true
+var someRes = arr.some(function(value, index, array){
+        return value>2;
+});
+console.info(someRes); // true
+
+// filter
+// 按方法参数给定条件进行筛选，返回true的项将保留到最后的新数组中
+var filterRes = arr.filter(function (value, index, array) {
+        return value>2;
+});
+console.info(filterRes); // [ 3, 4, 5, 4, 3 ]
+
+// map
+// 对数组的每个值运用方法参数进行计算，最后得出新的数组
+var mapRes = arr.map(function(value, index, array){
+        return value*2;
+});
+console.info(mapRes); // [ 2, 4, 6, 8, 10, 8, 6, 4 ]
+
+// forEach
+// 类似于for循环
+arr.forEach(function(value, index, array){
+        if(value === 3 && array.length > 5) {
+            console.info('Good!');
+        }
+});
+// Good!
+// Good!
+```
