@@ -744,6 +744,64 @@ arr.length = 5;
 console.info(arr[4]); // undefined 长度增长到5时，4的位置没有赋值则为undefined
 ```
 
+- Function:Array.isArray()
+
+```
+var arr = [];
+console.info(Array.isArray(arr)); // true
+
+console.info(arr instanceof Array); // true
+
+var tmpArr = ['aa', 'bb', 'cc'];
+console.info(tmpArr); // ['aa', 'bb', 'cc']
+alert(tmpArr); // 'aa','bb','cc' 由于alert()需要接受字符串参数，因此在调用alert前需要先调用toString()处理。
+```
+```
+
+- Function: join
+
+```
+var arr = ['aa', 'bb', 'cc'];
+console.info(arr.join()); // 'aa','bb','cc'
+console.info(arr.join(',')); // 'aa','bb','cc'
+console.info(arr.join('||')); // 'aa'||'bb'||'cc'
+```
+
+- Function: push
+
+- Function: pop
+
+- Function: shift
+
+- Function: unshift
+
+- Function: reverse
+
+- Function: sort
+
+比较的是字符串的值，默认以升序排列。
+sort可以接受比较函数作为参数。
+
+```
+function compare(val1, val2) {
+    if(val1 < val2) {
+	// 第一个参数小于第二个参数，则返回负数
+        return -1;
+    }else if(val1 > val2){
+	// 第一个参数大于第二个参数，则返回正数
+        return 1;
+    }else if(val1 == val2) {
+	// 两者相等则返回0
+        return 0;
+    }
+}
+
+var arr = [1,5,3, 2, 15];
+
+console.info(arr.sort());// [ 1, 15, 2, 3, 5 ]
+console.info(arr.sort(compare));// [ 1, 2, 3, 5, 15 ]
+```
+
 **操作方法**
 
 - Function: concat([str], [Array])
