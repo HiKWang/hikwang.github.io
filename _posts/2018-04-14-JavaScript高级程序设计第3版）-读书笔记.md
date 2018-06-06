@@ -810,12 +810,13 @@ console.info(arr.sort(compare));// [ 1, 2, 3, 5, 15 ]
 ```
 var arr = [1,2];
 var $arr = arr; // 传递的是引用
-var _arr = arr.concat(); // 复制一个副本
+var barr = arr.concat(); // 复制一个副本
 $arr.push(3);
-_arr.push(5);
+barr.push(5);
 console.info($arr);
-console.info(_arr);
+console.info(barr);
 console.info(arr);
+
 ```
 
 `concat`可以连接字符串或数组
@@ -897,4 +898,42 @@ arr.forEach(function(value, index, array){
 });
 // Good!
 // Good!
+```
+
+**缩小方法**
+
+- Function: reduce(function(prev, cur, index, array){});
+- Function: reduceRight(function(prev, cur, index, array){});
+
+```
+// 累加数组值
+var arr = [1,2,3,4,5];
+var sum = arr.reduce(function(prev, cur, index, array){
+    return prev+cur; 
+});
+
+console.info(sum);
+```
+
+### Date类型
+
+- Function: parse(timestr)
+- Function: UTC(year, month, [day], [hour], [minutes], [seconds], [millisecond])
+- Function: now()
+
+```
+// 实例化Date对象
+// 获取当前格式化时间
+var date = new Date();
+
+// 获取当前时间时间戳
+var timestamp2 = Date.now();
+var timestamp1 = +new Date();
+
+// 将时间戳转换为格式化时间
+var date0 = new Date(timestamp1);
+
+// 将格式化时间转换为时间戳
+var timestamp3 = Date.parse('2018-05-30 16:39:00');
+var timestamp4 = Date.UTC(2018, 4, 30, 16, 39);
 ```
