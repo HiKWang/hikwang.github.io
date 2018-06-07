@@ -936,4 +936,20 @@ var date0 = new Date(timestamp1);
 // 将格式化时间转换为时间戳
 var timestamp3 = Date.parse('2018-05-30 16:39:00');
 var timestamp4 = Date.UTC(2018, 4, 30, 16, 39);
+
+// 实例化后的日期对象和Date对象含有的属性方法不一样
+// 例如日期对象date没有now()方法，而Date对象有
+var timestamp5 = date.valueOf();
+var timestamp6 = Date.now();
 ```
+
+**日期格式化**
+
+- Function: toString();
+- Function: toLocaleString();
+- Function: toDateString();
+- Function: toLocaleDateString();
+...
+
+以上方法为日期实例化对象的方法，在每个浏览器的表现都不一样，因此不能用于表现同一格式的时间。
+
