@@ -953,3 +953,33 @@ var timestamp6 = Date.now();
 
 以上方法为日期实例化对象的方法，在每个浏览器的表现都不一样，因此不能用于表现同一格式的时间。
 
+### RegExp类型
+
+experssion = /pattern/flags
+
+flags有：i g m
+
+- 正则表达式创建方式
+
+```
+// 以下两者完全等价
+var reg1 = /abc/ig;
+var reg2 = new RegExp('abc', 'ig');
+```
+
+- 需要转义的元字符
+
+([{}])^$?.+
+
+- 双重转义
+
+在使用RegExp构造正则表达式时，要匹配元字符对应的字符串需要双重转义
+
+```
+// 字面量模式/\[c:\]/
+new RegExp('\\[c:\\]');
+
+// 字面量模式/\w\\hello\\123/
+new RegExp("\\w\\\\hello\\\\123")
+```
+
