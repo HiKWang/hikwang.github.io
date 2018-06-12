@@ -983,3 +983,208 @@ new RegExp('\\[c:\\]');
 new RegExp("\\w\\\\hello\\\\123")
 ```
 
+- 正则实例的属性和方法
+
+属性
+global
+ignoreCase
+multiline
+source
+lastIndex
+
+- Function: exec()
+
+- Function: test()
+
+```
+var str = 'this is a cat';
+var reg = /(\w+)\scat/ig;
+
+// c表示console.info
+// 实例属性
+// global
+c(reg.global);
+// ignoreCase
+c(reg.ignoreCase);
+// multiline
+c(reg.multiline);
+// source
+c(reg.source);
+// lastIndex 开始检索的起始位置
+c(reg.lastIndex);
+
+// 实例方法
+// exec
+var matches = reg.exec(str);
+c(matches.input); // 需要检索的字符串 此处是 this is a cat
+c(matches.index); // 表示匹配项在字符串的位置
+c(matches[0]); // 匹配上的字符串 此处是 a cat
+c(matches[1]);
+// test
+c(reg.test(str));
+```
+
+正则示带`g`的在调用exec时，每调用一次就会向后匹配一次
+
+```
+tr = 'bat cat dat mat';
+var pattern1 = /.(at)/g;
+
+var m1 = pattern1.exec(str);
+c(pattern1.lastIndex);
+c(m1.index);
+c(m1[0]); // bat
+c(m1[1]);
+
+var m2 = pattern1.exec(str);
+c(pattern1.lastIndex);
+c(m2.index);
+c(m2[0]); // cat
+c(m2[1]);
+```
+
+- 构造函数RegExp属性
+
+```
+var str = 'this is a hotline.';
+var reg = /(.)li(..)/i;
+
+if(reg.test(str)){
+    // c(RegExp.input);
+    c(RegExp['$_']);
+    // c(RegExp.lastMatch);
+    c(RegExp['$&']);
+    // c(RegExp.lastParen);
+    c(RegExp['$+']);
+    // c(RegExp.leftContext);
+    c(RegExp['$`']);
+    // c(RegExp.rightContext);
+    c(RegExp["$'"]);
+    c(RegExp.$1);
+    c(RegExp.$2);
+}
+```
+
+### Function类型
+
+1.声明函数的三种方法
+
+```
+// 函数式声明
+function funName(){} // 声明提前
+
+// 表达式声明
+var funName = function(){}
+
+// 构造函数
+var funName = new Function(); // 要解析两次，消耗性能，不推荐
+
+```
+
+2.函数是对象，函数名是指针
+
+3.使用不带圆括号的函数名是访问函数指针，而非调用函数
+
+4.函数声明和函数表达式
+
+```
+// 由于函数声明会提前，因此能得到正确的值
+alert(sum(1,2)); // 3
+function sum(v1, v2) {
+    return v1+v2;    
+}
+
+// 函数表达式
+// 此处仅var sum1;被提前
+alert(sum1(1,2)); // 报错TypeError: sum1 is not a function
+var sum1 = function(v1, v2){
+    return v1+v2;    
+}
+```
+
+- Function arguments.callee
+callee是一个指针，指向拥有这个arguments对象的函数
+
+```
+// arguments.callee()
+// 阶乘
+function f(num) {
+    if(num==1) {
+        return 1;
+    }else {
+        return num * arguments.callee(num-1)
+    }
+}
+
+
+var tmpf = f;
+
+// f被重写
+f = function() {
+    return 0;
+};
+
+c(tmpf(5)); // 120
+c(f(5)); // 0
+```
+
+- 函数中的this
+
+this引用的是函数据以执行的环境对象（当在网页的全局作用域调用函数时，this对象是window）
+
+```
+window.color = 'red';
+var obj = {color: 'blue'};
+
+function sayColor() {
+    console.info(this.color);
+}
+
+sayColor(); // red
+
+obj.sayColor = sayColor;
+obj.sayColor(); // blue
+```
+
+- 函数对象的caller
+
+调用当前函数的函数引用
+
+```
+function outer() {
+    inner();
+}
+
+function inner() {
+    console.info(arguments.callee.caller); // 返回outer的引用
+}
+
+outer();
+```
+
+- 函数的属性和方法
+
+length：用于获取函数形参的个数
+
+- Function: call(scope, var1, var2);
+
+- Function: apply(scope, Array);
+
+- Function: bind(scope);
+@return 函数的实例
+
+```
+var color = 'red';
+var obj = {color: 'blue'};
+
+function sayColor() {
+    console.info(this.color);
+}
+
+sayColor.call();
+sayColor.call(window);
+sayColor.call(obj);
+
+var s = sayColor().bind(obj);
+s();
+```
