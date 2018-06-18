@@ -1188,3 +1188,59 @@ sayColor.call(obj);
 var s = sayColor().bind(obj);
 s();
 ```
+
+### 基本包装类型
+
+基本类型在调用类似`substring`这类方法时，会临时创建包装类型用于调用方法。
+
+```
+var str = 'something';
+var s = str.substring(2);
+c(s);
+
+// 展示包装对象的原理
+var strObj = String(str);
+var tmpS = strObj.substring(2);
+// 立即销毁包装对象
+tmpS = null;
+
+// 包装对象会立即销毁，因此基本类型不能添加属性和方法
+str.color = 'blue';
+c(str.color); // undefined
+
+// 把字符串传递给Object构造函数，就会创建String的实例
+var sObj = new Object('something');
+c(sObj instanceof String); // true
+```
+
+#### Boolean
+
+```
+var o = new Boolean(false)
+c(o && true)
+c(o.valueOf() && true)
+c(o.valueOf())
+```
+
+#### Number
+
+- Function: vauleOf()
+
+- Function: toString()
+
+- Function: toFixed()
+参数为要保留的小数位数
+
+- Function: toExponential()
+e表示法，参数为要保留的小数位数
+
+- Function: toPercision()
+参数为要保留的数值位数
+
+#### String
+
+访问字符串
+
+- Function: charAt()
+
+- Function: charCodeAt()
