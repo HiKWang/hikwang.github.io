@@ -1244,3 +1244,164 @@ e表示法，参数为要保留的小数位数
 - Function: charAt()
 
 - Function: charCodeAt()
+
+## 5.7 单体内置对象
+
+### Math对象
+
+在所有代码执行之前，作用域中就存在两个内置对象：Global、Math
+
+```
+// Math
+
+function c(val) {
+    console.info(val);
+}
+
+var _min = Math.min(1,2,3);
+c(_min);
+
+var _max = Math.max(1,2,3);
+c(_max);
+
+// 获取数组的最值
+var arr = [9,8,7];
+var arrMin = Math.min.apply(Math, arr);
+c(arrMin);
+
+var arrMax = Math.max.apply(Math, arr);
+c(arrMax);
+
+// floor
+var num = 1.35;
+var numFloor = Math.floor(num);
+c(numFloor);
+
+// ceil
+var numCeil = Math.ceil(num);
+c(numCeil);
+
+// round
+var numRound = Math.round(num);
+c(numRound);
+
+// random 随机数大于0小于1
+var numRandom = Math.random();
+c(numRandom);
+c(numRandom>0); // true
+c(numRandom<1); // true
+
+// 获取两个数之间的随机整数
+// 公式：值 = Math.floor(Math.random() * 随机数的总个数 + 最小可能值)
+// 随机数的总个数 = 最大数 - 最小数 + 1;
+// 根据以上公式取大于等于1小于等于100的整数
+var _1to100 = Math.floor(Math.random()*100 + 1);
+c(_1to100);
+
+// 获取一个随机的颜色
+var color = ["red", "blue", "white", "black", "grey", "pink"];
+function randomFrom($min, $max) {
+    return randomInt = Math.floor(Math.random() * ($max - $min + 1) + $min);
+}
+var n = randomFrom(0, color.length-1);
+var randomColor = color[n];
+c(randomColor);
+```
+
+# 第6章 面向对象的程序设计
+
+## 理解对象
+
+### 属性类型
+
+```
+function c(val) {
+    console.info(val)
+}
+
+// Object.defineProperty
+
+// 数据属性
+// configurable enumerable writable value
+var person = {
+    name: 'tom',
+    age: 15
+};
+
+Object.defineProperty(person, 'name', {
+    configurable: true,// 设置为false后 属性不能delete 且无法再置为true
+    enumerable: false, // 不能通过for in 枚举
+    writable: false,// 不可写
+    value: 'tom'
+});
+
+person.name = 'jack';
+c(person.name); // tom
+
+for(v in person) {
+    c(v); // age
+}
+
+// 访问类型
+// configurable enumerable getter setter
+
+// 特别需要注意的是：以下属性`_year`和`year`
+// 由于book._year已经定义，在调用difineProperty时如果再使用`_year`会报栈溢出的错误
+// Maximum call stack size exceeded
+// https://stackoverflow.com/questions/37502163/getter-setter-maximum-call-stack-size-exceeded-error
+var book = {
+    _year: 2018,
+    edition: 1
+};
+
+Object.defineProperty(book, 'year', {
+    get: function () {
+        return this._year;
+    },
+    set: function (newYear) {
+        if(newYear > 2018) {
+            this._year = newYear;
+            return this.edition += newYear - 2018;
+        }
+    }
+});
+
+book.year = 2020;
+c(book.edition); // 3
+```
+### 定义多个属性
+
+```
+function c(val) {
+    console.info(val);
+}
+
+// Object.defineProperties
+var book = {};
+
+Object.defineProperties(book, {
+    _year: {
+        value: 2018
+    },
+    edition: {
+        value: 1
+    },
+    year: {
+        get: function () {
+            return this._year;
+        },
+        set: function (newYear) {
+            this._year = newYear;
+            this.edition += newYear - 2018;
+        }
+    }
+});
+
+
+// Object.getOwnPropertyDescriptor
+var descriptor1 = Object.getOwnPropertyDescriptor(book, 'year');
+c(typeof descriptor1.get);
+
+var descriptor2 = Object.getOwnPropertyDescriptor(book, '_year');
+c(descriptor2.value);
+```
