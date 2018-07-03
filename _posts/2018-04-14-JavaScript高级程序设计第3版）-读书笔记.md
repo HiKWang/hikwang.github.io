@@ -1556,3 +1556,173 @@ inheritPrototype(SubType, SuperType);
 var fun = new SubType('15');
 fun.sayAge();
 ```
+
+## 第7章 函数表达式
+
+### 递归
+
+```
+function fac(num) {
+    if(num<=1) {
+        return 1;
+    }else {
+        return num * fac(num-1);
+    }
+}
+console.info(ff(5));
+
+function ff(num) {
+    if(num<=1) {
+        return 1;
+    }else {
+        return num * arguments.callee(num-1); // 严格模式下不能调用 arguments.callee()
+    }
+}
+console.info(ff(5));
+
+// 严格模式和非严格模式都正确
+var fun = (function f(num) {
+    if(num<=1) {
+        return 1;
+    }else {
+        return num * f(num-1);
+    }
+});
+console.info(fun(6));
+```
+
+### 闭包
+
+闭包是指有权访问一个函数作用域中的变量的函数，创建闭包的常见方式，就是在一个函数内部创建另外一个函数。
+
+```
+function fun1(num) {
+    return function (name) {
+        if(name && num) {
+            return name;
+        }else {
+            return 0;
+        }
+    }
+}
+
+var fun = fun1(15);
+
+console.info(fun('tom'));
+
+// 解除对匿名函数的引用 以释放内存
+// 只有匿名函数fun被解除后，fun1才能被垃圾回收机制回收
+fun = null;
+```
+
+```
+
+function createFun() {
+    var res = [];
+    for(var i=0; i<10; i++) {
+        res[i] = function () {
+            return i;
+        }
+    }
+
+    return res;
+}
+
+// 每个匿名函数的作用域琏中都保存着createFun的活动对象，
+// 所以所有匿名函数都引用的是同一个变量i
+// 当循环执行完，i变为10时，之前的匿名函数的i也都为10了
+console.info(createFun()[0]()); // 10
+console.info(createFun()[1]()); // 10
+console.info(createFun()[9]()); // 10
+
+
+function createFun1() {
+    var res = [];
+    for(var i=0; i<10; i++) {
+	// 函数的参数是按值传递的，因此num是i的副本，不是引用
+        res[i] = function (num) {
+            return function () {
+                return num;
+            };
+        }(i);
+    }
+
+    return res;
+}
+
+console.info(createFun1()[0]()); // 0
+console.info(createFun1()[1]()); // 1
+console.info(createFun1()[9]()); // 9
+```
+
+#### 关于this对象
+
+在全局函数中，this等于window，而当函数被作为某个对象的方法调用时，this等于那个对象。
+
+匿名函数的执行环境具有全局性，因此其this对象通常指向window。
+
+```
+var name = 'my window';
+
+var o = {
+    name: 'my object',
+    getNameFun : function () {
+        return function () {
+            return this.name;
+        }
+    }
+};
+
+console.info(o.getNameFun()()); // my window
+```
+
+```
+var name = 'my window';
+
+var o = {
+    name: 'my object',
+    getNameFun : function () {
+        var that = this;
+        return function () {
+            return that.name;
+        }
+    }
+};
+
+console.info(o.getNameFun()()); // my object
+```
+
+```
+var name = 'my window';
+
+var o = {
+    name: 'my object',
+    getNameFun : function () {
+        return this.name;
+    }
+};
+
+console.info(o.getNameFun()); // my object
+console.info((o.getNameFun)()); // my object
+console.info((o.getNameFun = o.getNameFun)()); // my window 
+```
+
+#### 模仿块级作用域
+
+```
+function(){}(); // 出错！ 因为js会把关键字function视作函数声明的开始，而函数声明后面不能跟圆括号。
+(function(){})(); // 正确！因为加上圆括号后就是函数表达式，函数表达式可以接圆括号。
+
+function outp(count) {
+    (function () {
+        // 模仿块级作用域(私有作用域)
+        for(var i=0; i<count; i++) {
+            console.info(i); // 可以正常输出
+        }
+    })();
+
+    console.info(i); // ReferenceError: i is not defined
+}
+
+outp(5);
+```
