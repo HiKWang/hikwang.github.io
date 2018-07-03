@@ -1245,6 +1245,52 @@ e表示法，参数为要保留的小数位数
 
 - Function: charCodeAt()
 
+```
+var str = "hello word!";
+
+// 访问字符串 参数为字符串的位置值
+c(str.charAt(2)); // l
+c(str.charCodeAt(2)); // 108 返回相应字符的字符编码
+
+// 获取字符位置
+// indexOf
+// indexLastOf
+
+// 去掉空格
+// tirm
+
+// 截取字符串
+// slice
+// substr
+// substring
+
+// 连接字符串
+// concat
+// +
+
+// 比较字符串
+// localeCompare
+
+// 转换大小写
+// toLowerCase
+// toLocaleLowerCase
+// toUpperCase
+// toLocaleUpperCase
+
+// 替换字符串
+// replace
+
+// 查找字符串
+// match
+// search
+
+// 分割字符串
+// split
+
+// 静态方法
+// fromCharCode
+```
+
 ## 5.7 单体内置对象
 
 ### Math对象
@@ -1404,4 +1450,109 @@ c(typeof descriptor1.get);
 
 var descriptor2 = Object.getOwnPropertyDescriptor(book, '_year');
 c(descriptor2.value);
+```
+
+### 6.3继承
+
+#### 借用构造函数
+
+```javascript
+function superType(name) {
+    this.colors = ['red', 'blue', 'white'];
+    this.name = name;
+}
+
+function subType() {
+
+    superType.call(this, 'tom');
+
+    this.age = 14;
+}
+
+// 子类型subType继承自超级类型superType
+var instance1 = new subType();
+console.info(instance1.colors);
+console.info(instance1.name);
+console.info(instance1.age);
+
+```
+
+
+```javascript
+// 理解this
+function superType() {
+    // 如果函数在全局作用域直接调用，
+    // 那么此处的this指代Global，在浏览器环境中即window
+    this.colors = ['red', 'blue', 'white'];
+}
+
+function subType() {
+    // 如果函数在全局作用域直接调用，
+    // 那么此处的this指代Global，在浏览器环境中即window
+    // ================================================
+    // 如果对函数以new操作符产生一个实例对象，
+    // 那么this指代实例对象的作用域
+    superType.call(this);
+}
+
+// 全局作用域调用superType
+superType();
+console.info(window.colors); // ['red', 'blue', 'white']
+
+// 以new操作符产生一个实例对象，
+var ins = new subType();
+console.info(ins.colors); // ['red', 'blue', 'white']
+
+```
+
+#### 组合继承
+
+```
+// 组合式继承
+function SuperType(name) {
+    this.name = name;
+    this.age = 15;
+}
+
+SuperType.prototype.sayName = function () {
+    console.info(this.name);
+}
+
+function SubType(name) {
+    SuperType.call(this, name);
+}
+
+SubType.prototype = new SuperType();
+SubType.prototype.constructor = SubType;
+var fun = new SuperType('tom');
+fun.sayName();
+```
+
+#### 寄生组合式继承
+
+```
+// 寄生组合式继承
+function inheritPrototype(_sub, _super) {
+    var prototype = Object(_super.prototype); // 创建对象
+    prototype.constructor = _sub;           // 增强对象
+    _sub.prototype = prototype;               // 指定对象
+}
+
+function SuperType(age) {
+    this.name = 'tom';
+    this.age = age;
+}
+
+SuperType.prototype.sayAge = function () {
+    console.info(this.age);
+};
+
+function SubType(age) {
+    SuperType.call(this, age);
+}
+
+inheritPrototype(SubType, SuperType);
+
+var fun = new SubType('15');
+fun.sayAge();
 ```
