@@ -1726,3 +1726,65 @@ function outp(count) {
 
 outp(5);
 ```
+
+## 第8章 BOM
+
+### window对象
+
+window:在浏览器中，window即是访问浏览器窗口的一个接口，又是js的Global对象。
+全局变量不能通过delete删除，而定义在window上的属性可以被删除。
+
+```
+var age = 28;
+window.name = 'tom';
+
+console.info(window.age); // 28
+console.info(window.name); // tom
+
+console.info(delete window.age); // false
+console.info(delete window.name); // ture
+
+console.info(window.age); // 28
+console.info(window.name); // undefined
+
+// 直接访问一个未声明的变量会报错
+// 通过window.来访问不会报错，因为这是一次属性查询
+window.unkonwnVal
+```
+
+### 窗口关系和框架
+
+top:总是指向最外层框架，即浏览器窗口。
+parent:总是指向当前框架的直接上层框架，没有框架时等于top。
+self:等于window，用于区分top、parent。
+top/parent/self都是window的属性。
+frame:每个框架都有自己的window对象，可以通过框架集frames进行访问。
+
+```
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+<script>
+window.onload = function () {
+
+    console.info(top === window); // true
+    console.info(top.frames[0].location.search); // ?s=123
+    console.info(top.frames[0].name); // topFrame
+}
+</script>
+</head>
+<frameset rows="160, *">
+<frame src="topframe.html?s=123" name="topFrame"/>
+<frameset cols="50%, 50%">
+<frame src="leftframe.html" name="leftFrame"/>
+<frame src="rightframe.html" name="rightFrame"/>
+</frameset>
+</frameset>
+
+</html>
+```
