@@ -1788,3 +1788,56 @@ window.onload = function () {
 
 </html>
 ```
+
+## DOM
+
+### 节点层次
+
+#### Node类型
+
+1.获取节点Node
+
+通过docuemnt.getElementById()直接获取到节点；
+通过document.getElementByClassName()获取到的是节点数组；
+
+```
+var tmpNode = document.getElementById('tmpDiv');
+```
+
+2.节点下的属性和方法
+
+- nodeType
+
+节点类型共有12种，如`Node.ELEMENT_NODE`其值是1
+
+```
+console.log(tmpNode.nodeType == 1); // true
+console.log(tmpNode.nodeType == Node.ELEMENT_NODE); // true
+```
+
+- nodeName
+
+```
+console.info(tmpNode.nodeName); // DIV
+```
+
+- childNodes
+
+每个节点都有childNodes，childNodes包含一个对象NodeList，其是一个类数组的对象。
+
+```
+tmpNode.childNodes[0];
+tmpNode.childNodes.item(0);
+// NodeList对象转换为数组
+var tmpNodeArr = Array.prototype.slice.call(tmpNode.childNodes, 0);
+```
+
+- parentNode
+
+- previousSibling
+
+- nextSibling
+
+- firstChild
+
+- lastChild
