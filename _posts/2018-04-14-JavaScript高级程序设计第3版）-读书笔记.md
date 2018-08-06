@@ -1841,3 +1841,113 @@ var tmpNodeArr = Array.prototype.slice.call(tmpNode.childNodes, 0);
 - firstChild
 
 - lastChild
+
+3.操作节点
+
+- appendChild(newNode)
+
+- replaceChild(newNode, replaceNode)
+
+- insertBefore(newNode, referNode)
+
+- removeChild(oldNode)
+
+- cloneChild([true|false])
+
+- normalize()
+
+#### Document类型
+
+document是HTMLDocument的实例，也是window对象的属性。
+
+document.documentElement指向html节点
+
+document.body指向body节点
+
+document的其他属性和方法：
+
+- doctype
+
+- title
+
+- URL
+
+- domain
+
+可写，赋予松散值后不能再被赋予紧绷值，所赋值应是document.URL所包含的。
+
+- referrer
+
+- getElementById() 
+
+- getElementsByTagName()
+
+该方法返回的对象是一个HEMLCollection，它类似于NodeList对象，但HTMLCollection可以通过标签的name属性访问节点。
+
+```
+<html>
+<head></head>
+<body>
+<ul>
+<li name="first"></li>
+<li name="second"></li>
+<li name="third"></li>
+</ul>
+</body>
+</html>
+
+// 通过name查找节点
+var someNodes = document.getElementsByTagName('li');
+var fn = someNodes.namedItem('first');
+fn == someNodes['first'];
+fn == someNodes[0];
+// 获取文档全部节点
+var allElements = document.getElementsByTagName('*');
+```
+- getElementsByName()
+
+- anchors
+
+带name属性的a标签
+
+- links
+
+带href属性的a标签
+
+- images
+
+- forms
+
+- write()
+
+- writeln()
+
+#### Element类型
+
+1. 获取Element
+
+    - getElementById()
+    
+    - getElementsByName()
+    ...
+
+2. 创建Element
+
+    - createElement()
+
+3. 操作Element的特性
+
+    - getAttribute()
+
+    - setAttribute()
+
+    - removeAttribute()
+
+4. 公认特性如`id`可以通过属性直接操作
+
+```
+var element = document.getElementById('myDiv');
+element.id = 'otherDiv';
+```
+
+#### Text类型
