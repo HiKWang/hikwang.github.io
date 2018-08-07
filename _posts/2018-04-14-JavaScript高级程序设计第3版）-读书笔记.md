@@ -1951,3 +1951,44 @@ element.id = 'otherDiv';
 ```
 
 #### Text类型
+
+1. 创建文本节点
+
+    - document.createTextNode()
+
+2. 操作文本节点
+
+    - textNode.appendData(text)
+    将text添加到文本节点textNode的末尾
+
+    - textNode.deleteData(offset, count)
+    从offset指定的位置开始删除count个字符
+
+    - textNode.insertData(offset, text)
+    从offset位置插入text
+
+    - textNode.replaceData(offset, count, text)
+    用text替换从offset位置开始到offset+count结束的文本
+
+    - textNode.spliteText(offset)
+    从offset位置将当前文本分成两个文本节点
+
+    - textNode.substringData(offset, count)
+    提前从offset到offset+count为止的字符串
+
+    - normalize()
+    ```
+    const dv = document.createElement('div');
+    const tn1 = document.createTextNode('Hello word!');
+    const tn2 = document.createTextNode('Yep!');
+
+    dv.appendChild(tn1);
+    dv.appendChild(tn2);
+
+    console.info(dv.childNodes);
+
+    dv.normalize();
+    console.info(dv.childNodes);
+    dv.firstChild.splitText(5);
+    console.info(dv.childNodes);
+    ```
