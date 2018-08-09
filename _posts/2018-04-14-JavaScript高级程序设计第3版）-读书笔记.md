@@ -1992,3 +1992,20 @@ element.id = 'otherDiv';
     dv.firstChild.splitText(5);
     console.info(dv.childNodes);
     ```
+
+#### DocumentFragment类型
+
+文档片段，可以避免浏览器的多次渲染。
+
+```
+var fragment = document.createDocumentFragment();
+var ul = document.getElementById('myul');
+var li = null;
+for(var i = 0; i < 3; i++) {
+    li = document.createElement('li');
+    li.appendChild(document.createTextNode('item'+i));
+    fragment.appendChild(li);
+}
+
+ul.appendChild(fragment);
+```
