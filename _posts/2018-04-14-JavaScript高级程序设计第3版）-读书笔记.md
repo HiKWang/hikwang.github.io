@@ -68,7 +68,6 @@ console.info(msg == undefined); // 输出 undefined 注意：undefined是值不�
 typeof null; // 返回'object'
 ```
 
-
 `undefined`是派生自null值，因此它们的相等性测试会返回`true`
 
 ```
@@ -102,13 +101,13 @@ console.info(msgAsBoolean); // 返回true
 
 - Boolean类型的自动转换
 
-数据类型    |    转换为true     |    转换为false
--|-|-
-Boolean     |        true       |        false
-String      |   任何非空字符串  |       ""
-Number      |   非零数字值      |       0和NaN
-Object      |   任何对象        |       null
-Undefined   |   n/a             |       undefined
+| 数据类型      | 转换为true | 转换为false  |
+| --------- | ------- | --------- |
+| Boolean   | true    | false     |
+| String    | 任何非空字符串 | ""        |
+| Number    | 非零数字值   | 0和NaN     |
+| Object    | 任何对象    | null      |
+| Undefined | n/a     | undefined |
 
 *注：n/a(或N/A)即not applicable 意思是“不适用”*
 
@@ -119,6 +118,7 @@ Undefined   |   n/a             |       undefined
 - 保存浮点数值所需空间是保存整数值的两倍.
 
 以下情况js会将浮点数解析会整数：
+
 ```
 var floatNum1 = 1.; // 小数点后没有数字——floatNum1解析为1
 var floatNum2 = 10.0; // 本身为整数——floatNum2解析为10
@@ -160,16 +160,19 @@ var f2 = 2e-9; // f2==2*10^-9
 ##### 3.NaN
 
 表示非数值(Not a Number)
+
 > 这个数值用于表示一个本来要返回数值的操作数未返回数值的情况。在JS中，任何数除以0会返回NaN。
 
 - NaN有两个特点
 
 1. 任何设计NaN的操作都返回NaN
-```
-console.info(NaN/10); // ==>NaN
-```
+
+   ```
+   console.info(NaN/10); // ==>NaN
+   ```
 
 2.NaN与任何值都不相等，包括NaN本身
+
 ```
 console.info(NaN == NaN); // ==>false
 ```
@@ -242,6 +245,7 @@ parseInt(010);          // ==>8
 parseInt(010, 10);      // ==>8
 parseInt('010', 10);    // ==>10
 ```
+
 - Functin: parseFloat()
 
 `parseFloat`: 1.只能解析十进制数(十六进制数会被解析会0)
@@ -272,25 +276,25 @@ Number/Boolean/Object/String类型都有方法`toString`,null/undefined没有`to
 
 ```
 var num = 10;
-num.toString(2);	// ==> "1010"
-num.toSring(8);		// ==> "12"
-num.toSring(16);	// ==> "a"
+num.toString(2);    // ==> "1010"
+num.toSring(8);        // ==> "12"
+num.toSring(16);    // ==> "a"
 ```
 
 - Function: String()
 
 ```
-String(10); 	// ==> '10'
-String(true);	// ==> 'true'
-String(null);	// ==> 'null'
-String(undefined);	// ==> 'undefined'
+String(10);     // ==> '10'
+String(true);    // ==> 'true'
+String(null);    // ==> 'null'
+String(undefined);    // ==> 'undefined'
 ```
 
 ##### Object
 
 ```
 var o1 = new Object();
-var o2 = new Object;	// 有效，不推荐
+var o2 = new Object;    // 有效，不推荐
 ```
 
 Object的每个实例都具有以下属性和方法：
@@ -312,11 +316,11 @@ function fun(){
 }
 
 var f = new fun();
-console.info(f.hasOwnProperty('name'));	// ==>true
+console.info(f.hasOwnProperty('name'));    // ==>true
 
 // hasOwnProperty检查对象实例中有无指定属性
 // 不是检查实例原型中的属性
-console.info(f.hasOwnProperty('constructor'));	// ==>false
+console.info(f.hasOwnProperty('constructor'));    // ==>false
 ```
 
 3.`isPrototypeOf()`
@@ -327,7 +331,7 @@ function siteAdmin(nickName){
 }
 
 var matou=new siteAdmin("tom");
-console.info(siteAdmin.prototype.isPrototypeOf(matou));	// ==>true
+console.info(siteAdmin.prototype.isPrototypeOf(matou));    // ==>true
 ```
 
 4.`propertyIsEnumerable()`
@@ -354,7 +358,7 @@ console.info(k+','+p[k]); // ==>name,zhangsan
 ```
 var date = new Date();
 date.toString();  // ==>"Fri May 11 2018 22:24:57 GMT+0800 (CST)"
-date.toLocaleString();	// ==>"5/11/2018, 10:24:57 PM"
+date.toLocaleString();    // ==>"5/11/2018, 10:24:57 PM"
 ```
 
 6.`toString()`
@@ -363,8 +367,8 @@ date.toLocaleString();	// ==>"5/11/2018, 10:24:57 PM"
 
 ```
 var array = new Array("a","b","c");
-console.log(array.valueOf());	// Array(3) 返回数组本身
-console.log(array.toString());	// 'a','b','c'
+console.log(array.valueOf());    // Array(3) 返回数组本身
+console.log(array.toString());    // 'a','b','c'
 console.log(array.toLocaleString()); // 'a','b','c'
 ```
 
@@ -459,6 +463,7 @@ console.info(arr.toString()); // 1,2,3
 NaN < 3; // false
 NaN >= 3; // false
 ```
+
 ## 语句
 
 - `for`
@@ -677,7 +682,8 @@ console.info(p.name);
 - 作用域琏
 
 - 没有块级作用域 有函数作用域（function scope）
-### 垃圾收集
+
+  ### 垃圾收集
 
 执行环境中自动管理，在一定间隔时间内找出不再使用的变量，释放其内存空间。
 垃圾收集器会跟踪哪个变量没用了，并打上标记。
@@ -756,15 +762,17 @@ var tmpArr = ['aa', 'bb', 'cc'];
 console.info(tmpArr); // ['aa', 'bb', 'cc']
 alert(tmpArr); // 'aa','bb','cc' 由于alert()需要接受字符串参数，因此在调用alert前需要先调用toString()处理。
 ```
+
 ```
 
 - Function: join
-
 ```
+
 var arr = ['aa', 'bb', 'cc'];
 console.info(arr.join()); // 'aa','bb','cc'
 console.info(arr.join(',')); // 'aa','bb','cc'
 console.info(arr.join('||')); // 'aa'||'bb'||'cc'
+
 ```
 
 - Function: push
@@ -781,17 +789,17 @@ console.info(arr.join('||')); // 'aa'||'bb'||'cc'
 
 比较的是字符串的值，默认以升序排列。
 sort可以接受比较函数作为参数。
-
 ```
+
 function compare(val1, val2) {
     if(val1 < val2) {
-	// 第一个参数小于第二个参数，则返回负数
+    // 第一个参数小于第二个参数，则返回负数
         return -1;
     }else if(val1 > val2){
-	// 第一个参数大于第二个参数，则返回正数
+    // 第一个参数大于第二个参数，则返回正数
         return 1;
     }else if(val1 == val2) {
-	// 两者相等则返回0
+    // 两者相等则返回0
         return 0;
     }
 }
@@ -800,14 +808,15 @@ var arr = [1,5,3, 2, 15];
 
 console.info(arr.sort());// [ 1, 15, 2, 3, 5 ]
 console.info(arr.sort(compare));// [ 1, 2, 3, 5, 15 ]
+
 ```
 
 **操作方法**
 
 - Function: concat([str], [Array])
 @return Array
-
 ```
+
 var arr = [1,2];
 var $arr = arr; // 传递的是引用
 var barr = arr.concat(); // 复制一个副本
@@ -820,12 +829,13 @@ console.info(arr);
 ```
 
 `concat`可以连接字符串或数组
-
 ```
+
 var arr = ['aa', 'bb'];
 var newArr = [11,22];
 var a = arr.concat('cc', newArr);
 console.info(a);
+
 ```
 
 - Function: slice(begin, [end])
@@ -843,10 +853,11 @@ console.info(a);
 @return index || -1
 
 查找的字符要和原数组中的字符全等"==="才能被找到
-
 ```
+
 var arr = [1,2,3];
 console.info(arr.indexOf('2')); // -1
+
 ```
 
 **迭代方法**
@@ -1078,7 +1089,6 @@ var funName = function(){}
 
 // 构造函数
 var funName = new Function(); // 要解析两次，消耗性能，不推荐
-
 ```
 
 2.函数是对象，函数名是指针
@@ -1415,6 +1425,7 @@ Object.defineProperty(book, 'year', {
 book.year = 2020;
 c(book.edition); // 3
 ```
+
 ### 定义多个属性
 
 ```
@@ -1474,9 +1485,7 @@ var instance1 = new subType();
 console.info(instance1.colors);
 console.info(instance1.name);
 console.info(instance1.age);
-
 ```
-
 
 ```javascript
 // 理解this
@@ -1502,7 +1511,6 @@ console.info(window.colors); // ['red', 'blue', 'white']
 // 以new操作符产生一个实例对象，
 var ins = new subType();
 console.info(ins.colors); // ['red', 'blue', 'white']
-
 ```
 
 #### 组合继承
@@ -1639,7 +1647,7 @@ console.info(createFun()[9]()); // 10
 function createFun1() {
     var res = [];
     for(var i=0; i<10; i++) {
-	// 函数的参数是按值传递的，因此num是i的副本，不是引用
+    // 函数的参数是按值传递的，因此num是i的副本，不是引用
         res[i] = function (num) {
             return function () {
                 return num;
@@ -1704,7 +1712,7 @@ var o = {
 
 console.info(o.getNameFun()); // my object
 console.info((o.getNameFun)()); // my object
-console.info((o.getNameFun = o.getNameFun)()); // my window 
+console.info((o.getNameFun = o.getNameFun)()); // my window
 ```
 
 #### 模仿块级作用域
@@ -1904,6 +1912,7 @@ fn == someNodes[0];
 // 获取文档全部节点
 var allElements = document.getElementsByTagName('*');
 ```
+
 - getElementsByName()
 
 - anchors
@@ -1926,22 +1935,22 @@ var allElements = document.getElementsByTagName('*');
 
 1. 获取Element
 
-    - getElementById()
-    
-    - getElementsByName()
-    ...
+   - getElementById()
+
+   - getElementsByName()
+...
 
 2. 创建Element
 
-    - createElement()
+   - createElement()
 
 3. 操作Element的特性
 
-    - getAttribute()
+   - getAttribute()
 
-    - setAttribute()
+   - setAttribute()
 
-    - removeAttribute()
+   - removeAttribute()
 
 4. 公认特性如`id`可以通过属性直接操作
 
@@ -1954,44 +1963,45 @@ element.id = 'otherDiv';
 
 1. 创建文本节点
 
-    - document.createTextNode()
+   - document.createTextNode()
 
 2. 操作文本节点
 
-    - textNode.appendData(text)
-    将text添加到文本节点textNode的末尾
+   - textNode.appendData(text)
+将text添加到文本节点textNode的末尾
 
-    - textNode.deleteData(offset, count)
-    从offset指定的位置开始删除count个字符
+   - textNode.deleteData(offset, count)
+从offset指定的位置开始删除count个字符
 
-    - textNode.insertData(offset, text)
-    从offset位置插入text
+   - textNode.insertData(offset, text)
+从offset位置插入text
 
-    - textNode.replaceData(offset, count, text)
-    用text替换从offset位置开始到offset+count结束的文本
+   - textNode.replaceData(offset, count, text)
+用text替换从offset位置开始到offset+count结束的文本
 
-    - textNode.spliteText(offset)
-    从offset位置将当前文本分成两个文本节点
+   - textNode.spliteText(offset)
+从offset位置将当前文本分成两个文本节点
 
-    - textNode.substringData(offset, count)
-    提前从offset到offset+count为止的字符串
+   - textNode.substringData(offset, count)
+提前从offset到offset+count为止的字符串
 
-    - normalize()
-    ```
-    const dv = document.createElement('div');
-    const tn1 = document.createTextNode('Hello word!');
-    const tn2 = document.createTextNode('Yep!');
+   - normalize()
 
-    dv.appendChild(tn1);
-    dv.appendChild(tn2);
-
-    console.info(dv.childNodes);
-
-    dv.normalize();
-    console.info(dv.childNodes);
-    dv.firstChild.splitText(5);
-    console.info(dv.childNodes);
-    ```
+     ```
+     const dv = document.createElement('div');
+     const tn1 = document.createTextNode('Hello word!');
+     const tn2 = document.createTextNode('Yep!');
+     
+     dv.appendChild(tn1);
+     dv.appendChild(tn2);
+     
+     console.info(dv.childNodes);
+     
+     dv.normalize();
+     console.info(dv.childNodes);
+     dv.firstChild.splitText(5);
+     console.info(dv.childNodes);
+     ```
 
 #### DocumentFragment类型
 
