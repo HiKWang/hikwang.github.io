@@ -1797,7 +1797,7 @@ window.onload = function () {
 </html>
 ```
 
-## DOM
+## 第10章 DOM
 
 ### 节点层次
 
@@ -2018,4 +2018,21 @@ for(var i = 0; i < 3; i++) {
 }
 
 ul.appendChild(fragment);
+
+
 ```
+
+## 第11章 DOM扩展
+
+### 选择符API
+
+- Selector API Level 1
+
+    - querySelector
+
+    - querySelectorAll
+
+- Selector API Level 2
+
+    - matchesSelector
+    各浏览器支持时需要加加前缀 如：webkitMatchSelector
