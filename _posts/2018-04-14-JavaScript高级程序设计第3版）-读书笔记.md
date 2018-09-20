@@ -6,6 +6,7 @@ subtitle: JavaScript高级程序设计（第3版）
 date: 2018-04-14
 categories: notes
 postPatterns: circuitBoard
+---
 
 ## tags: JavaScript
 
@@ -16,14 +17,19 @@ postPatterns: circuitBoard
 ## 2.3 文档模式
 
 1.通过文档类型切换(doctype)实现；
+
 2.文档模式分为：混杂模式(quirks mode)、标准模式(standards mode)、准标准模式(almost stadards mode)；
+
 3.主要影响CSS内容的呈现，在某些情况会影响javascript的解释执行；
+
 4.没有文档类型声明，会默认开启混杂模式。
 
 ## 2.4 noscript元素
 
 在以下情况会显示noscript元素内容
+
 1.不支持js;
+
 2.禁用了js。
 
 # 第3章 基本概念
@@ -2035,4 +2041,7 @@ ul.appendChild(fragment);
 - Selector API Level 2
 
     - matchesSelector
+    
     各浏览器支持时需要加加前缀 如：webkitMatchSelector
+    
+## 第12章 DOM2和DOM3
